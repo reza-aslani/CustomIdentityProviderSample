@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 //using WebApplication2.Data;
 
-using CustomIdentityProviderSample.CustomProvider;
 using Microsoft.Data.SqlClient;
+using CustomIdentityProvider;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +17,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>().AddDefaultTokenProviders();
 
 // Identity Services
-builder.Services.AddTransient<IUserStore<ApplicationUser>, CustomUserStore>();
-builder.Services.AddTransient<IRoleStore<ApplicationRole>, CustomRoleStore>();
+builder.Services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
+builder.Services.AddScoped<IRoleStore<ApplicationRole>, CustomRoleStore>();
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddTransient<SqlConnection>(e => new SqlConnection(connectionString));
-builder.Services.AddTransient<DapperUsersTable>();
+builder.Services.AddScoped<SqlConnection>(e => new SqlConnection(connectionString));
+builder.Services.AddScoped<DapperUsersTable>();
 
+builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -47,6 +48,10 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.MapRazorPages();
 
 app.Run();

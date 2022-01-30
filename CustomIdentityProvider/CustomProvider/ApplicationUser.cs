@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Principal;
 
-namespace CustomIdentityProviderSample.CustomProvider
+namespace CustomIdentityProvider
 {
     public class ApplicationUser : IIdentity
     {

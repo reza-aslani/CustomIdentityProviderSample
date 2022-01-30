@@ -5,14 +5,15 @@ using System.Data.SqlClient;
 using System;
 using Dapper;
 
-namespace CustomIdentityProviderSample.CustomProvider
+namespace CustomIdentityProvider
 {
     public class DapperUsersTable
     {
         private readonly SqlConnection _connection;
-        public DapperUsersTable(SqlConnection connection)
+        public DapperUsersTable()//SqlConnection connection)
         {
-            _connection = connection;
+            //_connection = connection;
+            _connection = new SqlConnection("Data Source=.;Initial Catalog=Db;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
 #region createuser

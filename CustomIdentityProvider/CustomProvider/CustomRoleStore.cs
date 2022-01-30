@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace CustomIdentityProviderSample.CustomProvider
+namespace CustomIdentityProvider
 {
     /// <summary>
     /// This store isn't implemented as part of this sample.
